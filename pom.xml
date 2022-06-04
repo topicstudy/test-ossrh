@@ -1,51 +1,34 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>io.github.topicstudy</groupId>
     <artifactId>test-ossrh</artifactId>
     <version>1.0.5</version>
-
     <packaging>jar</packaging>
+
     <name>test-ossrh</name>
-    <description>test ossrh</description>
-
-    <url>https://github.com/topicstudy/test-ossrh</url>
-    <inceptionYear>2022</inceptionYear>
-
-    <properties>
-        <gpg.skip>false</gpg.skip>
-        <javadoc.skip>false</javadoc.skip>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jdk.version>1.8</jdk.version>
-    </properties>
-
-    <scm>
-        <url>https://github.com/topicstudy/test-ossrh</url>
-        <connection>scm:git:https://git@github.com/topicstudy/test-ossrh.git</connection>
-    </scm>
-
-    <organization>
-        <name>Alibaba Group</name>
-        <url>https://github.com/topicstudy</url>
-    </organization>
-
-    <developers>
-        <developer>
-            <id>wenshao</id>
-            <name>wenshao</name>
-            <email>szujobs1@hotmail.com</email>
-        </developer>
-    </developers>
-
+    <description>A demo for deployment to the Central Repository via OSSRH</description>
+    <url>http://github.com/topicstudy/test-ossrh</url>
     <licenses>
         <license>
-            <name>Apache 2</name>
+            <name>The Apache Software License, Version 2.0</name>
             <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-            <comments>A business-friendly OSS license</comments>
         </license>
     </licenses>
+    <developers>
+        <developer>
+            <name>topicstudy</name>
+            <email>topicstudy@163.com</email>
+            <organization>topicstudy</organization>
+            <organizationUrl>http://www.topicstudy.cn</organizationUrl>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:git://github.com/topicstudy/test-ossrh.git</connection>
+        <developerConnection>scm:git:ssh://github.com:topicstudy/test-ossrh.git</developerConnection>
+        <url>http://github.com/topicstudy/test-ossrh</url>
+    </scm>
 
     <distributionManagement>
         <snapshotRepository>
@@ -58,19 +41,22 @@
         </repository>
     </distributionManagement>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.7</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
@@ -101,6 +87,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
                 <version>1.5</version>
+                <configuration>
+                    <keyname>0x143D3FFA</keyname>
+                </configuration>
                 <executions>
                     <execution>
                         <id>sign-artifacts</id>
@@ -108,40 +97,10 @@
                         <goals>
                             <goal>sign</goal>
                         </goals>
-                        <configuration>
-                            <keyname>0x143D3FFA</keyname>
-<!--                            <passphraseServerId>${gpg.keyname}</passphraseServerId>-->
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>2.2.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.9.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
         </plugins>
     </build>
+
 </project>
